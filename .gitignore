@@ -24,3 +24,4 @@ hs_err_pid*
 
 #vim swp files
 .*.*.swp
+/target/
