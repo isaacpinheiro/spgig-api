@@ -55,6 +55,14 @@ public class Gig implements Serializable {
     @Column(name = "data_fim", nullable = true)
     private Date dataFim;
     
+    @Temporal(TemporalType.TIME)
+    @Column(name = "horario_inicio", nullable = true)
+    private Date horarioInicio;
+    
+    @Temporal(TemporalType.TIME)
+    @Column(name = "horario_fim", nullable = true)
+    private Date horarioFim;
+    
     @Column(name = "endereco", nullable = false)
     private String endereco;
     
@@ -144,6 +152,22 @@ public class Gig implements Serializable {
 
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
+    }
+    
+    public Date getHorarioInicio() {
+        return horarioInicio;
+    }
+
+    public void setHorarioInicio(Date horarioInicio) {
+        this.horarioInicio = horarioInicio;
+    }
+
+    public Date getHorarioFim() {
+        return horarioFim;
+    }
+
+    public void setHorarioFim(Date horarioFim) {
+        this.horarioFim = horarioFim;
     }
 
     public String getEndereco() {

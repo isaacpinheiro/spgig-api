@@ -42,7 +42,7 @@ public class Organizador implements Serializable {
     @Column(name = "cnpj", nullable = false)
     private String cnpj;
     
-    @Column(name = "email_contato", nullable = true)
+    @Column(name = "email_contato", nullable = false)
     private String emailContato;
     
     @Column(name = "telefone_contato", nullable = true)
