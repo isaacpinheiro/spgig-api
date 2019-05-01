@@ -36,6 +36,9 @@ public class Organizador implements Serializable {
     @Column(name = "senha", nullable = false)
     private String senha;
     
+    @Column(name = "salt", nullable = false)
+    private Integer salt;
+    
     @Column(name = "nome_razao", nullable = false)
     private String nomeRazao;
     
@@ -80,6 +83,14 @@ public class Organizador implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+    
+    public Integer getSalt() {
+        return salt;
+    }
+
+    public void setSalt(Integer salt) {
+        this.salt = salt;
     }
 
     public String getNomeRazao() {
