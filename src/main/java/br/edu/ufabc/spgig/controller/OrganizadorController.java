@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import br.edu.ufabc.spgig.model.Organizador;
 import br.edu.ufabc.spgig.repository.OrganizadorRepository;
+import br.edu.ufabc.spgig.model.Login;
+
+import br.edu.ufabc.spgig.util.MyHash;
 
 @RestController
 public class OrganizadorController {
@@ -49,6 +52,29 @@ public class OrganizadorController {
         Organizador obj = repository.findOne(Long.parseLong(id));
         repository.delete(obj);
         return "{\"msg\": \"success\"}";
+    }
+    
+    @RequestMapping(value="/api/organizador/cadastrar", method=RequestMethod.POST, consumes="application/json")
+    public @ResponseBody String cadastrar(@RequestBody Organizador obj) {
+        obj.setSalt(MyHash.generateToken());
+        obj.setSenha(MyHash.generate(obj.getSenha(), obj.getSalt()));
+        repository.save(obj);
+        return "{\"msg\": \"success\"}";
+    }
+    
+    @RequestMapping(value="/api/organizador/login", method=RequestMethod.POST, consumes="application/json")
+    public @ResponseBody String login(@RequestBody Login obj) {
+        
+        Organizador o = repository.findByNomeUsuario(obj.getNomeUsuario());
+        
+        if (o == null) {
+            return "{\"msg\": \"Nome de Usuário ou a Senha está incorreto.\"}";
+        } else if (!MyHash.match(o.getSenha(), obj.getSenha(), o.getSalt())) {
+            return "{\"msg\": \"Nome de Usuário ou a Senha está incorreto.\"}";
+        }
+        
+        return "{\"msg\": \"success\"}";
+        
     }
     
 }
