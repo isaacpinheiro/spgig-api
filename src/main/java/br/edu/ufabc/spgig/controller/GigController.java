@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import br.edu.ufabc.spgig.model.Gig;
 import br.edu.ufabc.spgig.repository.GigRepository;
+import br.edu.ufabc.spgig.model.Busca;
 
 @RestController
 public class GigController {
@@ -49,6 +50,19 @@ public class GigController {
         Gig obj = repository.findOne(Long.parseLong(id));
         repository.delete(obj);
         return "{\"msg\": \"success\"}";
+    }
+    
+    @RequestMapping(value="/api/gig/busca", method=RequestMethod.GET, consumes="application/json")
+    public @ResponseBody Iterable<Gig> busca(@RequestBody Busca busca) {
+        
+        if (busca.getCidade() == null) {
+            Iterable<Gig> obj = repository.findByTipo(busca.getTipo());
+            return obj;
+        } else {
+            Iterable<Gig> obj = repository.findByCidade(busca.getTipo(), busca.getCidade());
+            return obj;
+        }
+        
     }
     
 }
