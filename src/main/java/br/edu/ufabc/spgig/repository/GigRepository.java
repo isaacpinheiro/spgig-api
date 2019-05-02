@@ -11,8 +11,15 @@ package br.edu.ufabc.spgig.repository;
  */
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import br.edu.ufabc.spgig.model.Gig;
 
 public interface GigRepository extends CrudRepository<Gig, Long> {
+    
+    Gig findByTipo(String tipo);
+    
+    @Query("select g from Gig g where g.tipo = :tipo and g.cidade = :cidade")
+    Gig findByCidade(@Param("tipo") String tipo, @Param("cidade") String cidade);
     
 }

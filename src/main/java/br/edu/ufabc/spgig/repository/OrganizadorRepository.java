@@ -14,5 +14,5 @@ import org.springframework.data.repository.CrudRepository;
 import br.edu.ufabc.spgig.model.Organizador;
 
 public interface OrganizadorRepository extends CrudRepository<Organizador, Long> {
-    
+    Organizador findByNomeUsuario(String nomeUsuario);
 }
